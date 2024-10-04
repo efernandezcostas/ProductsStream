@@ -15,14 +15,8 @@ public class Main {
         Product p4 = new Product("cod4", "grapas", 2d);
         guardarDatos(p4);
 
-        ArrayList<Product> listaProdutos = new ArrayList<>();
-        listaProdutos.add(p1);
-        listaProdutos.add(p2);
-        listaProdutos.add(p3);
-        listaProdutos.add(p4);
-
         Product po3 = new Product();
-        leerDatos(po3, listaProdutos);
+        leerDatos(po3);
     }
 
     static void guardarDatos(Product product){
@@ -39,14 +33,14 @@ public class Main {
         }
     }
 
-    static void leerDatos(Product product, ArrayList<Product> lista){
+    static void leerDatos(Product product){
         try(
                 FileInputStream fis = new FileInputStream("produtos.txt");
                 BufferedInputStream bis = new BufferedInputStream(fis);
                 DataInputStream dis = new DataInputStream(bis);
         ){
             System.out.println("Lista de produtos guardados no ficheiro produtos.txt");
-            for (Product prodctos: lista){
+            while (dis.available() != 0){
                 product.setCodigo(dis.readUTF());
                 product.setDescricion(dis.readUTF());
                 product.setPrezo(dis.readDouble());
